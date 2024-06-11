@@ -3,74 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox Hosting Game - Account Generator</title>
+    <title>r/Place Clone</title>
     <style>
         body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            padding: 50px;
         }
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            display: inline-block;
-            max-width: 400px;
+
+        #color-picker {
+            margin-bottom: 20px;
         }
-        h1 {
-            color: #333;
+
+        #grid {
+            display: grid;
+            grid-template-columns: repeat(50, 10px);
+            grid-template-rows: repeat(50, 10px);
+            gap: 1px;
         }
-        input[type="text"], input[type="password"] {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: #28a745;
-            color: white;
-            font-size: 16px;
+
+        .pixel {
+            width: 10px;
+            height: 10px;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
             cursor: pointer;
-        }
-        button:hover {
-            background-color: #218838;
-        }
-        .message {
-            margin-top: 20px;
-            font-size: 16px;
-            color: #28a745;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Generate Roblox Account</h1>
-        <form id="accountForm">
-            <input type="text" id="username" placeholder="Enter desired username" required><br>
-            <input type="password" id="password" placeholder="Enter desired password" required><br>
-            <button type="button" onclick="generateAccount()">Generate Account</button>
-        </form>
-        <div id="message" class="message"></div>
+    <h1>r/Place Clone</h1>
+    <div id="color-picker">
+        <input type="color" id="color" value="#000000">
     </div>
-
+    <div id="grid"></div>
     <script>
-        function generateAccount() {
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('grid');
+            const colorPicker = document.getElementById('color');
+            let currentColor = colorPicker.value;
 
-            if (username && password) {
-                // Placeholder for actual account creation logic
-                document.getElementById("message").textContent = "Account for '" + username + "' has been generated with the 'Build It' game!";
-            } else {
-                document.getElementById("message").textContent = "Please fill in both fields.";
+            colorPicker.addEventListener('input', (e) => {
+                currentColor = e.target.value;
+            });
+
+            for (let i = 0; i < 2500; i++) {
+                const pixel = document.createElement('div');
+                pixel.classList.add('pixel');
+                pixel.addEventListener('click', () => {
+                    pixel.style.backgroundColor = currentColor;
+                });
+                grid.appendChild(pixel);
             }
-        }
+        });
     </script>
 </body>
 </html>
